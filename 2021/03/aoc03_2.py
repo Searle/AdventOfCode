@@ -1,6 +1,5 @@
 # https://adventofcode.com/2021/day/3
 from pathlib import Path
-from functools import reduce
 
 ref = False
 part = "_2"
