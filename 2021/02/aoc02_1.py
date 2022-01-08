@@ -13,7 +13,7 @@ x = 0
 y = 0
 for i in input:
     [command, value] = i.split(" ")
-    if (command == "forward"):
+    if command == "forward":
         x += int(value)
     elif command == "up":
         y -= int(value)

@@ -14,7 +14,7 @@ drop_count = 0
 for i, j, k in zip(input, input[1:], input[2:]):
     current = int(i) + int(j) + int(k)
     if last > 0 and current > last:
-        drop_count = drop_count + 1
+        drop_count += 1
     last = current
 result = str(drop_count)
 

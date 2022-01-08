@@ -13,7 +13,7 @@ last = -1
 drop_count = 0
 for i in input:
     if last > 0 and int(i) > last:
-        drop_count = drop_count + 1
+        drop_count += 1
     last = int(i)
 result = str(drop_count)
 

@@ -14,7 +14,7 @@ y = 0
 aim = 0
 for i in input:
     [command, value] = i.split(" ")
-    if (command == "forward"):
+    if command == "forward":
         x += int(value)
         y += int(value) * aim
     elif command == "up":
