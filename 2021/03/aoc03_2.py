@@ -20,8 +20,9 @@ def rating(keep, drop):
             partitioned[bit[inx]].append(bit)
         bits = partitioned[keep] if len(partitioned['1']) >= len(
             partitioned['0']) else partitioned[drop]
-        if len(bits) == 0:
-            throw("len(bits) == 0 ???")
+
+        assert len(bits) > 0, "len(bits) == 0 ???"
+
         if len(bits) == 1:
             return int(bits[0], 2)
 

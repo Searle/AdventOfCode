@@ -1,6 +1,5 @@
 # https://adventofcode.com/2021/day/6
 from pathlib import Path
-from itertools import count
 
 ref = False
 part = "_1"
@@ -9,9 +8,6 @@ ext = "_ref.txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
 input = open(path/("input" + ext), "r").read().rstrip().split("\n")
 # ---
-
-
-def parse_csi(str): return tuple(map(lambda a: int(a), str.split(",")))
 
 
 def run():

@@ -54,7 +54,7 @@ def run():
                         return sum * int(number)
                     board["in"] = False
                     boardCount = boardCount - 1
-    throw("no result")
+    assert False, "No result"
 
 
 result = str(run())

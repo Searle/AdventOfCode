@@ -45,7 +45,8 @@ def run():
                         if board["bits1"][x] & (1 << y) == 0:
                             sum += int(number1)
                     return sum * int(number)
-    throw("no result")
+
+    assert False, "No result"
 
 
 result = str(run())

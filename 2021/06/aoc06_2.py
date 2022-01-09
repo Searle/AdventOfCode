@@ -1,10 +1,9 @@
 # https://adventofcode.com/2021/day/6
 from pathlib import Path
-from itertools import count
 from functools import reduce
 
 ref = False
-part = "_1"
+part = "_2"
 
 ext = "_ref.txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
