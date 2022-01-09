@@ -1,6 +1,5 @@
 # https://adventofcode.com/2021/day/11
 from pathlib import Path
-from itertools import count
 
 ref = False
 part = "_1"

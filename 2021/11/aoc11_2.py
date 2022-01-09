@@ -1,6 +1,5 @@
 # https://adventofcode.com/2021/day/11
 from pathlib import Path
-from itertools import count
 
 ref = False
 part = "_2"
@@ -68,7 +67,7 @@ def run():
 
         # printCave()
 
-    assert False, "No soultion found"
+    assert False, "No solution found"
 
 
 # ---
