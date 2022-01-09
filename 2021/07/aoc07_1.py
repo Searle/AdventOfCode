@@ -11,8 +11,6 @@ input = open(path/("input" + ext), "r").read().rstrip().split("\n")
 
 
 def run():
-    # print(input[0])
-
     crabs = [int(i) for i in input[0].split(",")]
     leftIndex = min(crabs)
     rightIndex = max(crabs)
