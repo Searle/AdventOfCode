@@ -4,10 +4,10 @@ from pathlib import Path
 # This algorithm is wrong and worked by chance
 # aoc15_2 has the working algorithm
 
-ref = False
+ref = 1
 part = "_1"
 
-ext = "_ref.txt" if ref else ".txt"
+ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
 input = open(path/("input" + ext), "r").read().rstrip().split("\n")
 # ---
