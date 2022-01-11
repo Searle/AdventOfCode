@@ -21,7 +21,7 @@ def run():
     assert m, "Regex failed"
     (x0, x1, y0, y1) = map(int, m.groups())
 
-    return y0 * (y0 + 1) / 2
+    return int(y0 * (y0 + 1) / 2)
 
 
 # ---
