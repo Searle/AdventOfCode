@@ -1,7 +1,7 @@
 # https://adventofcode.com/2021/day/19
 from pathlib import Path
 
-ref = 1
+ref = 0
 part = "_1"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
@@ -22,33 +22,64 @@ def padd(p0, p1):
     return (p1[0] + p0[0], p1[1] + p0[1], p1[2] + p0[2])
 
 
+def psub(p0, p1):
+    return (p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2])
+
+
 def run():
 
     orients = [
-        lambda p: (p[0],  p[1],  p[2]),
-        lambda p: (p[0],  p[2], -p[1]),
-        lambda p: (p[0], -p[1], -p[2]),
-        lambda p: (p[0], -p[2],  p[1]),
-        lambda p: (p[1],  p[0], -p[2]),
-        lambda p: (p[1],  p[2],  p[0]),
-        lambda p: (p[1], -p[0],  p[2]),
+        lambda p: (p[0], p[1], p[2]),
+        lambda p: (p[1], -p[0], p[2]),
+        lambda p: (-p[0], -p[1], p[2]),
+        lambda p: (-p[1], p[0], p[2]),
+        lambda p: (p[2], p[1], -p[0]),
         lambda p: (p[1], -p[2], -p[0]),
-        lambda p: (p[2],  p[0],  p[1]),
-        lambda p: (p[2],  p[1], -p[0]),
-        lambda p: (p[2], -p[0], -p[1]),
-        lambda p: (p[2], -p[1],  p[0]),
-        lambda p: (-p[0],  p[1], -p[2]),
-        lambda p: (-p[0],  p[2],  p[1]),
-        lambda p: (-p[0], -p[1],  p[2]),
-        lambda p: (-p[0], -p[2], -p[1]),
-        lambda p: (-p[1],  p[0],  p[2]),
-        lambda p: (-p[1],  p[2], -p[0]),
-        lambda p: (-p[1], -p[0], -p[2]),
-        lambda p: (-p[1], -p[2],  p[0]),
-        lambda p: (-p[2],  p[0], -p[1]),
-        lambda p: (-p[2],  p[1],  p[0]),
-        lambda p: (-p[2], -p[0],  p[1]),
         lambda p: (-p[2], -p[1], -p[0]),
+        lambda p: (-p[1], p[2], -p[0]),
+        lambda p: (-p[0], p[1], -p[2]),
+        lambda p: (p[1], p[0], -p[2]),
+        lambda p: (p[0], -p[1], -p[2]),
+        lambda p: (-p[1], -p[0], -p[2]),
+        lambda p: (-p[2], p[1], p[0]),
+        lambda p: (p[1], p[2], p[0]),
+        lambda p: (p[2], -p[1], p[0]),
+        lambda p: (-p[1], -p[2], p[0]),
+        lambda p: (p[0], p[2], -p[1]),
+        lambda p: (p[2], -p[0], -p[1]),
+        lambda p: (-p[0], -p[2], -p[1]),
+        lambda p: (-p[2], p[0], -p[1]),
+        lambda p: (-p[0], p[2], p[1]),
+        lambda p: (p[2], p[0], p[1]),
+        lambda p: (p[0], -p[2], p[1]),
+        lambda p: (-p[2], -p[0], p[1]),
+    ]
+
+    inv_orients = [
+        lambda p: (-p[0], -p[1], -p[2]),
+        lambda p: (p[1], -p[0], -p[2]),
+        lambda p: (p[0], p[1], -p[2]),
+        lambda p: (-p[1], p[0], -p[2]),
+        lambda p: (p[2], -p[1], -p[0]),
+        lambda p: (p[2], -p[0], p[1]),
+        lambda p: (p[2], p[1], p[0]),
+        lambda p: (p[2], p[0], -p[1]),
+        lambda p: (p[0], -p[1], p[2]),
+        lambda p: (-p[1], -p[0], p[2]),
+        lambda p: (-p[0], p[1], p[2]),
+        lambda p: (p[1], p[0], p[2]),
+        lambda p: (-p[2], -p[1], p[0]),
+        lambda p: (-p[2], -p[0], -p[1]),
+        lambda p: (-p[2], p[1], -p[0]),
+        lambda p: (-p[2], p[0], p[1]),
+        lambda p: (-p[0], p[2], -p[1]),
+        lambda p: (p[1], p[2], -p[0]),
+        lambda p: (p[0], p[2], p[1]),
+        lambda p: (-p[1], p[2], p[0]),
+        lambda p: (p[0], -p[2], -p[1]),
+        lambda p: (-p[1], -p[2], -p[0]),
+        lambda p: (-p[0], -p[2], p[1]),
+        lambda p: (p[1], -p[2], p[0]),
     ]
 
     orients2d = [
@@ -247,7 +278,7 @@ def run():
         for p in scannerProbes[0]:
             points[p] = True
 
-        def add(sc, trans):
+        def add(info, sc, trans):
             nonlocal points
 
             ycount = 0
@@ -261,7 +292,7 @@ def run():
                 points[p] = True
                 # print(i, sp, padd(o(sp1s[i]), offset))
 
-            print("COUNT", sc, ycount, ncount)
+            print("COUNT", info, sc, ycount, ncount)
 
         def check1a(sc, trans):
             nonlocal seen
@@ -273,19 +304,28 @@ def run():
                     next.append((sc0, ">", sc1))
                     trans1 = compose(trans, mktrans(
                         orients[orient1_i], offset))
-                    add(sc1, trans1)
+                    add(str(sc0) + ">", sc1, trans1)
                     check1a(sc1, trans1)
 
                 if sc == sc1 and not sc0 in seen:
                     seen[sc1] = True
                     next.append((sc1, ">", sc0))
-                    check1a(sc0, trans)
+
+                    def mkinvtrans(inv_o, offset):
+                        return lambda a: inv_o(psub(a, offset))
+
+                    trans1 = compose(trans, mkinvtrans(
+                        inv_orients[orient1_i], offset))
+                    add("<" + str(sc1), sc0, trans1)
+                    check1a(sc0, trans1)
 
             print
 
         check1a(0, lambda a: a)
         for i in next:
             print(i)
+
+        print(len(points.keys()))
 
     xx()
 
