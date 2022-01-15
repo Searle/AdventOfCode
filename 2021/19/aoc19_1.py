@@ -28,6 +28,8 @@ def psub(p0, p1):
 
 def run():
 
+    # Generated with make_orientation.py
+
     orients = [
         lambda p: (p[0], p[1], p[2]),
         lambda p: (p[1], -p[0], p[2]),
@@ -80,13 +82,6 @@ def run():
         lambda p: (-p[1], -p[2], -p[0]),
         lambda p: (-p[0], -p[2], p[1]),
         lambda p: (p[1], -p[2], p[0]),
-    ]
-
-    orients2d = [
-        lambda p: (p[0],  p[1],  p[2]),
-        lambda p: (p[1], -p[0],  p[2]),
-        lambda p: (-p[0], -p[1],  p[2]),
-        lambda p: (-p[1],  p[0],  p[2]),
     ]
 
     scannerProbes = []
@@ -161,24 +156,14 @@ def run():
         for key in filter(lambda k: same[k] >= minNN, same.keys()):
             (sc1, orient1_i) = key
             # print("SAMERELS", sc0, sc1, orient1_i)
-            lastSpdiff = None
             for (sp00_i, sp01_i, sp10_i, sp11_i, inv1) in rels[sc0][key]:
                 sp00 = scannerProbes[sc0][sp00_i]
                 sp10 = scannerProbes[sc1][sp10_i]
                 sp10o = orients[orient1_i](sp10)
-                spdiff = pdiff(sp10o, sp00)
-                if lastSpdiff == None:
-                    lastSpdiff = spdiff
-                elif spdiff != lastSpdiff:
-                    print("DIFF!")  # Kommt nur bei input_ref2.txt vor
-                    lastSpdiff = None
-                    break
-
-                # print("SPXX", sp00, sp10o, spdiff, inv1)
-
-            if lastSpdiff != None:
-                # print("FOUND", sc0, "=>", sc1, orient1_i, lastSpdiff)
-                scannerRules.append((sc0, sc1, orient1_i, lastSpdiff))
+                distance = pdiff(sp10o, sp00)
+                scannerRules.append((sc0, sc1, orient1_i, distance))
+                # print("FOUND", sc0, "=>", sc1, orient1_i, distance)
+                break
 
     def compose(f, g):
         return lambda x: f(g(x))
@@ -190,27 +175,27 @@ def run():
         return lambda a: inv_o(psub(a, offset))
 
     seen = {}
-    points = {}
+    beacons = {}
 
     for p in scannerProbes[0]:
-        points[p] = True
+        beacons[p] = True
 
-    def addPoints(info, sc, trans):
-        nonlocal points
+    def addBeacons(info, sc, trans):
+        nonlocal beacons
 
         ycount = 0
         ncount = 0
         for sp in scannerProbes[sc]:
             p = trans(sp)
-            if p in points:
+            if p in beacons:
                 ycount += 1
             else:
                 ncount += 1
-            points[p] = True
+            beacons[p] = True
 
         # print("COUNT", info, sc, ycount, ncount)
 
-    def rulesToPoints(sc, trans):
+    def rulesToBeacons(sc, trans):
         nonlocal seen
 
         for sc0, sc1, orient1_i, offset in scannerRules:
@@ -218,19 +203,19 @@ def run():
                 seen[sc0] = True
                 trans1 = compose(trans, mktrans(
                     orients[orient1_i], offset))
-                addPoints(str(sc0) + ">", sc1, trans1)
-                rulesToPoints(sc1, trans1)
+                addBeacons(str(sc0) + ">", sc1, trans1)
+                rulesToBeacons(sc1, trans1)
 
             if sc == sc1 and not sc0 in seen:
                 seen[sc1] = True
                 trans1 = compose(trans, mkinvtrans(
                     inv_orients[orient1_i], offset))
-                addPoints("<" + str(sc1), sc0, trans1)
-                rulesToPoints(sc0, trans1)
+                addBeacons("<" + str(sc1), sc0, trans1)
+                rulesToBeacons(sc0, trans1)
 
-    rulesToPoints(0, lambda a: a)
+    rulesToBeacons(0, lambda a: a)
 
-    return len(points.keys())
+    return len(beacons.keys())
 
 
 # ---
