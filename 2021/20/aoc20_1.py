@@ -10,10 +10,6 @@ input = open(path/("input" + ext), "r").read().rstrip().split("\n")
 # ---
 
 
-def add(arr, key, value):
-    arr[key] = arr[key] + value if key in arr else value
-
-
 def run():
     iea = input[0]
 
