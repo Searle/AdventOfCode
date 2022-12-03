@@ -2,7 +2,7 @@
 from pathlib import Path
 
 ref = 0
-part = "_1"
+part = "_2"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()

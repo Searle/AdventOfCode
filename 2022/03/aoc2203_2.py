@@ -3,7 +3,7 @@ from pathlib import Path
 from functools import reduce
 
 ref = 0
-part = "_1"
+part = "_2"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
