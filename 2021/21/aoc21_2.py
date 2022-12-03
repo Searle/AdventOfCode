@@ -16,7 +16,7 @@ def add(arr, key, value):
 
 
 def run():
-    space = [int(input[0].split(':')[1]) - 1,  int(input[1].split(':')[1]) - 1]
+    # space = [int(input[0].split(':')[1]) - 1,  int(input[1].split(':')[1]) - 1]
 
     def calcDistribution():
 
@@ -85,47 +85,48 @@ def run():
 
     def a4():
 
-        def roll1(space1, space2):
+        def roll1(space0, space1):
 
             distribution = (1, 3, 6, 7, 6, 3, 1)
+            dices = 3
+
+            # distribution = (1, 1, 1)
+            # dices = 1
 
             # debug
             # distribution = distribution[0:1]
 
             wins = [0, 0]
-            stepHist = {}
 
             # space[0]/score[0] ist immer score des player
-            def roll2(step, fact, uniCount, player, space, score):
+            def roll2(step, fact, uniCount, player, space0, space1, score0, score1):
                 nonlocal wins
 
                 for i, count in list(enumerate(distribution)):
-                    nextFact = fact * count
+                    nextFact = fact * count  # * dices
                     nextUniCount = uniCount + nextFact
 
-                    nextSpace = (space[0] + i + 3) % 10
-                    nextScore = score[0] + nextSpace + 1
+                    nextSpace = (space0 + i + dices) % 10
+                    nextScore = score0 + nextSpace + 1
 
                     if False:
                         print(step, "N", i, "of", count,
                               ":", nextSpace, nextFact,
-                              "|", player, nextScore, nextUniCount, space, score)
+                              "|", player, nextScore, nextUniCount,
+                              "|", space0, score0, space1, score1)
 
                     if nextScore >= 21:
                         wins[player] += nextUniCount
-                        add(stepHist, step, nextUniCount)
                         continue
 
                     roll2(step + 1, nextFact, nextUniCount, 1 - player,
-                          (space[1], nextSpace), (score[1], nextScore))
+                          space1, nextSpace, score1, nextScore)
 
-            print()
-            roll2(0, 1, 0, 0, (space1, 0), (space2, 0))
+            roll2(0, 1, 0, 0, space0, space1, 0, 0)
             print("WINS", wins)
             print("WINSX",
-                  (444356092776315 / wins[0]),
-                  (341960390180808 / wins[1]))
-            print("SH", stepHist)
+                  (444356092776315 / max(1, wins[0])),
+                  (341960390180808 / max(1, wins[1])))
 
         roll1(3, 7)
 
