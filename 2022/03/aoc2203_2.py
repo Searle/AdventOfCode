@@ -13,8 +13,8 @@ inputs = open(path/("input" + ext), "r").read().rstrip().split("\n")
 
 def prio(c):
     if c >= 'a':
-        return ord(c) - ord('a')+1
-    return ord(c) - ord('A')+27
+        return ord(c) - ord('a') + 1
+    return ord(c) - ord('A') + 27
 
 
 def or_arr(arr):
