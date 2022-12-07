@@ -2,7 +2,7 @@
 from pathlib import Path
 
 ref = 0
-part = "_1"
+part = "_2"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
@@ -74,11 +74,8 @@ def run():
             [1, 2, 3, 4, 5, 6, 7],
         ]
 
-        for i in range(0, 14):
-            digits[i].reverse()
-
         nums = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        largest = nums.copy()
+        smallest = nums.copy()
         running = True
         retval = [0, 0, 0, 0]
 
@@ -108,7 +105,7 @@ def run():
             exec(code, {"in_list": nums1, "retval": retval})
 
             if retval[3] == 0:
-                largest = nums1.copy()
+                smallest = nums1.copy()
                 break
 
             for i in range(13, -1, -1):
@@ -119,7 +116,7 @@ def run():
                 if i == 0:
                     running = False
 
-        return "".join(map(str, largest))
+        return "".join(map(str, smallest))
 
     return check_model_nos()
 

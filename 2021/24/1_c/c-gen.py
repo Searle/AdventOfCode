@@ -26,7 +26,7 @@ def run():
     prg = [
         '#include <stdint.h>',
         '',
-        '// Generated with aoc24_1a-c-gen.py',
+        '// Generated with c-gen.py',
         '',
         '#define IN_INT ' + in_int,
         '#define OUT_INT ' + out_int,

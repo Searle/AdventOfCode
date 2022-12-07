@@ -1,6 +1,6 @@
 package main
 
-// Generated with aoc24_1a-go-gen.py
+// Generated with go-gen.py
 
 func code(in_list [14]int32) (int32, int32, int32, int32) {
     var w int32 = 0

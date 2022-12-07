@@ -23,7 +23,7 @@ def run():
     prg = [
         'package main',
         '',
-        '// Generated with aoc24_1a-go-gen.py',
+        '// Generated with go-gen.py',
         '',
         'func code(in_list [14]' + in_int + ') ' +
         '(' + int + ', ' + int + ', ' + int + ', ' + int + ') {',

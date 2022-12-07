@@ -1,11 +1,12 @@
 #include <stdint.h>
 
-// Generated with aoc24_1a-c-gen.py
+// Generated with c-gen.py
 
 #define IN_INT int32_t
 #define OUT_INT int32_t
 
-void code(IN_INT *in, OUT_INT *out) {
+void code(IN_INT *in, OUT_INT *out)
+{
     OUT_INT w = 0;
     OUT_INT x = 0;
     OUT_INT y = 0;

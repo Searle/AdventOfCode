@@ -21,7 +21,7 @@ func main() {
 
 			fmt.Println("OPS", n0, n1, n2, n3)
 
-			var nums = [14]int32{1, n0, n1, n2, n3, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+			var nums = [14]int32{3, n0, n1, n2, n3, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
 			var running = true
 			for running {
