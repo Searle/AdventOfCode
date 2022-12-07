@@ -1,0 +1,130 @@
+
+inp w           w = inp
+mul x 0         # x = 0
+add x z         # x = z
+mod x 26        # x = z % 26
+div z 1         # z /= 1
+add x 11        x = z % 26 + 11
+eql x w         # x = x == w
+eql x 0         x = x != w
+mul y 0         # y = 0
+add y 25        # y = 25
+mul y x         # y = x * 25
+add y 1         y = x * 25 + 1
+mul z y         z = z * y
+mul y 0         # y = 0
+add y w         # y = w
+add y 7         # y = w + 7
+mul y x         # y = (w + 7) * x
+add z y         z = z + (w + 7) * x
+
+w = inp
+x = z % 26 + 11
+x = x != w
+z = z * (x * 25 + 1) + (w + 7) * x
+
+w = inp
+x = z % 26 + 11
+x = x != w
+z += x * (z * 25  + w + 7)
+
+w = inp
+z += z % 26 + 11 == w ? 0 : z * 25 + w + 7
+
+---
+
+func code(in_list [14]int32) (int32, int32, int32, int32) {
+    var w int32 = 0
+    var x int32 = 0
+    var y int32 = 0
+    var z int32 = 0
+    w = int32(in_list[0])
+    x = 0
+    x += z
+    x %= 26
+    z /= 1
+    x += 11
+    if x == w {
+        x = 1
+    } else {
+        x = 0
+    }
+    if x == 0 {
+        x = 1
+    } else {
+        x = 0
+    }
+    y = 0
+    y += 25
+    y *= x
+    y += 1
+    z *= y
+    y = 0
+    y += w
+    y += 7
+    y *= x
+    z += y
+    return w, x, y, z
+}
+
+func code(in_list [14]int32) (int32, int32, int32, int32) {
+    var w int32 = 0
+    var x int32 = 0
+    var y int32 = 0
+    var z int32 = 0
+    w = int32(in_list[0])
+    x = z % 26 + 11
+    if x != w {
+        x = 1
+    } else {
+        x = 0
+    }
+    z += x * (z * 25  + w + 7)
+    return w, x, y, z
+}
+
+---
+
+main:
+        ret
+code:
+        mov     rax, QWORD PTR [rdi]
+        xor     ecx, ecx
+        cmp     rax, 11
+        lea     rdx, [rax+7]
+        setne   cl
+        imul    rdx, rcx
+        add     rax, rcx
+        lea     rax, [rax+rdx*2]
+        ret
+
+        main:
+        ret
+code:
+        mov     eax, DWORD PTR [rdi]
+        xor     ecx, ecx
+        cmp     eax, 11
+        lea     edx, [rax+7]
+        setne   cl
+        imul    edx, ecx
+        add     eax, ecx
+        lea     eax, [rax+rdx*2]
+        ret
+
+C: 22% faster than GOLANG
+
+$ time ./a.exe 
+AT [ 1, 1, 1, 1, 1, 3, 3, 9, 2, 5, 6, 2, 9, 2 ]
+
+real    0m7,475s
+user    0m0,000s
+sys     0m0,016s
+
+GOLANG:
+
+$ time ./aoc24_1.exe
+AT [1 1 1 1 1 3 3 9 2 5 6 2 9 2]
+
+real    0m9,596s
+user    0m0,000s
+sys     0m0,000s

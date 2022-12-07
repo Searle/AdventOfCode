@@ -46,7 +46,7 @@ def run():
         for amph0, pos in enumerate(at_pos):
             amph = (amph0 & 3) + 1
 
-            assert(map1[pos] == amph)
+            assert map1[pos] == amph
 
             (x, y) = pos_to_coords[pos]
             str[y + 1] = str[y + 1][:x] + \

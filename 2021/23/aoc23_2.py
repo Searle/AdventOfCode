@@ -10,10 +10,6 @@ path = Path(__file__).parent.absolute()
 inputs = open(path/("input" + part + ext), "r").read().rstrip().split("\n")
 # ---
 
-# 08 09 10 11 12 13 14 15 16 17 18
-#       04    05    06    07
-#       00    01    02    03
-
 # 16 17    18    19    20    21 22
 #       12    13    14    15
 #       08    09    10    11
@@ -67,7 +63,7 @@ def run():
         for amph0, pos in enumerate(at_pos):
             amph = (amph0 & 3) + 1
 
-            assert(map1[pos] == amph)
+            assert map1[pos] == amph
 
             (x, y) = pos_to_coords[pos]
             str[y + 1] = str[y + 1][:x] + \
