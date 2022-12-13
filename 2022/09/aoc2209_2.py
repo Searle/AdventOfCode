@@ -1,8 +1,8 @@
 # https://adventofcode.com/2022/day/09
 from pathlib import Path
 
-ref = 0
-part = "_1"
+ref = 2
+part = "_2"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
 path = Path(__file__).parent.absolute()
@@ -56,7 +56,7 @@ def run():
                 else:
                     trail.add(z[i])
 
-    print_trail()
+    # print_trail()
 
     result = len(trail)
 
