@@ -29,9 +29,7 @@ def run():
             continue
 
         m = re.match(r'^move (\d+) from (\d+) to (\d+)', input)
-        if m is None:
-            continue
-
+        assert m is not None
         [amount, source, target] = [int(m[1]), int(m[2]) - 1, int(m[3]) - 1]
         stacks[target] += stacks[source][(-amount):]
         stacks[source] = stacks[source][:-amount]
