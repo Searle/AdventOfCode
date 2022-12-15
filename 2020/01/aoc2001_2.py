@@ -1,4 +1,4 @@
-# https://adventofcode.com/2020/day/01
+# https://adventofcode.com/2020/day/1
 from pathlib import Path
 import re
 from functools import reduce

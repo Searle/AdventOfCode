@@ -1,4 +1,4 @@
-# https://adventofcode.com/2022/day/09
+# https://adventofcode.com/2022/day/9
 from pathlib import Path
 
 ref = 0

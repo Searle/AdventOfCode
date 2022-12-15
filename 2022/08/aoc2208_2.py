@@ -1,7 +1,5 @@
-# https://adventofcode.com/2022/day/08
+# https://adventofcode.com/2022/day/8
 from pathlib import Path
-import re
-from functools import reduce
 
 ref = 0
 part = "_2"

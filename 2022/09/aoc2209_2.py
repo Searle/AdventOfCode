@@ -1,4 +1,4 @@
-# https://adventofcode.com/2022/day/09
+# https://adventofcode.com/2022/day/9
 from pathlib import Path
 
 ref = 2
@@ -45,7 +45,7 @@ def run():
         for _ in range(0, len1):
             dir = dir1
             for i in range(0, tl):
-                z[i] = (z[i][0] + dir[0], z[i][1] + dir[1])
+                z[i] = (z[i][0] + dir[0], z[i][1] + dir[1])  # pyright: ignore
                 if i < tl - 1:
                     dx = z[i][0] - z[i+1][0]
                     dy = z[i][1] - z[i+1][1]
