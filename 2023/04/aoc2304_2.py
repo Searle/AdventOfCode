@@ -34,10 +34,8 @@ def run():
         for i in range(0, found):
             if card + i + 1 < len(cards):
                 cards[card + i + 1] += cards[card]
-        # print(card + 1, found)
-        result += cards[card]
 
-    print(cards)
+        result += cards[card]
 
     return result
 
