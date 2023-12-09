@@ -6,7 +6,7 @@ from typing import List
 import math
 from functools import reduce
 
-ref = 0
+ref = 3
 part = "_2"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
@@ -55,7 +55,7 @@ def run():
             count += 1
         nums.append(count)
 
-    result = print(kgv_list(nums))
+    result = kgv_list(nums)
     return result
 
 
