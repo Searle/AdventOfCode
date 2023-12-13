@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import re
-from typing import List
+from typing import Dict, Set, List
 
 ref = 1
 part = "_1"
