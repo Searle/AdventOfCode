@@ -18,7 +18,7 @@ def run():
 
     for input in inputs:
         m = re.fullmatch(r"Card\s+(\d+):(.+)\|(.+)", input)
-        assert m is not None
+        assert m is not None, "NOT MATCHED: " + input
 
         pass
 
