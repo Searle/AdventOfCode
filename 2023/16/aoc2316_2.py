@@ -101,14 +101,3 @@ def run():
 result = run()
 print(result)
 open(path / ("result" + part + ext), "w").write(str(result).rstrip() + "\n")
-
-
-""""
-    r
-        |
-        \
-        /
-        
-    
-
-"""

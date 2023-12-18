@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 from typing import Dict, Set, List, Tuple
 
-ref = 0
+ref = 1
 part = "_1"
 
 ext = "_ref" + str(ref) + ".txt" if ref else ".txt"
@@ -17,8 +17,8 @@ def run():
     result = 0
 
     mw = len(inputs[0]) + 1
-    maze = "?" * (mw) + "?".join(inputs) + "?" * (mw)
-    beams: List[Tuple[int, int]] = [(mw - 1, 1)]
+    maze = "?" * (mw) + "".join(["?" + i for i in inputs]) + "?" * (mw)
+    beams: List[Tuple[int, int]] = [(mw, 1)]
     visited = set()
     visited1 = set()
 
