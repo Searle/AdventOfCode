@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import re
-from typing import Dict, Set, List
+from typing import Dict, Set, List, Tuple
 
 ref = 1
 part = "_2"
